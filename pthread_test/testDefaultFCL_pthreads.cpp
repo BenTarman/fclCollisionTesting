@@ -13,6 +13,8 @@ using namespace fcl;
 void* doCollision(void*);
 pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
+
+//store collision objects in struct
 struct myStruct
 {
   CollisionObject co0;
@@ -20,6 +22,7 @@ struct myStruct
 
   myStruct() : co0(NULL), co1(NULL) {}
 };
+
 
 Transform3f tf0(Vec3f(1,1,1)), tf1(Vec3f(2,2,2));
 Transform3f tf;
@@ -30,7 +33,7 @@ Transform3f tf2 = Transform3f(Vec3f(0.416767, 0.332619, 0.552623));
 
 int main()
 {
-
+    //this will result in collision
     std::shared_ptr<Box> box0(new Box(0.02,0.02,0.02));
     std::shared_ptr<Box> box1(new Box(0.03,0.02,0.02));
     tf0 = Transform3f(Vec3f(0.1,0.1,0.1));
@@ -43,6 +46,8 @@ int main()
     CollisionObject co0 = thread_args.co0;
     CollisionObject co1 = thread_args.co1;
 
+
+    //testing with 2 threads
     pthread_t thread1, thread2;
     int retr1, retr2;
 
@@ -53,6 +58,7 @@ int main()
     pthread_join(thread2, NULL);
 
 
+    //ensure no errors occured
     std::cout << "thread 1: " << retr1 << std::endl;
     std::cout << "thread 2: " << retr2 << std::endl;
 
