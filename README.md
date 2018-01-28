@@ -12,7 +12,7 @@ which results in a race condition. A similar problem exists for ContinuousCollid
 
 
 
-Makefile INSTRUCTIONS
+**Makefile INSTRUCTIONS**
 
 'make drd' runs valgrind drd
 
