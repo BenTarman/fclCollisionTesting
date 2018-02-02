@@ -7,36 +7,37 @@
 #include <stdio.h>
 #include <omp.h>
 
-#define NUM_THREADS 	4
+#define NUM_THREADS 4
 using namespace std;
 using namespace fcl;
 
 int main()
 {
-    Transform3f tf0(Vec3f(1,1,1)), tf1(Vec3f(2,2,2));
-    Transform3f tf;
+Box *s1 = new Box(2,2,2);
+Box *s2 = new Box(5, 5, 5);
 
-    CollisionResult result;
-    CollisionRequest request;
-    Transform3f tf2 = Transform3f(Vec3f(0.416767, 0.332619, 0.552623));
+CollisionRequest request;
+CollisionResult result;
 
+omp_set_num_threads(NUM_THREADS);
+#pragma omp parallel for
+for (unsigned int i = 0; i < 250; i++)
+{
+  collide(s1, Transform3f(Vec3f(0, 2, 3)), s2, Transform3f(Vec3f(2,2,2)), request, result);
+}
 
-    //this should result in collision of 2 boxes
-    std::shared_ptr<Box> box0(new Box(0.02,0.02,0.02));
-    std::shared_ptr<Box> box1(new Box(0.03,0.02,0.02));
-    tf0 = Transform3f(Vec3f(0.1,0.1,0.1));
-    tf1 = Transform3f(Vec3f(0.1,0.1,0.1));
+delete s1;
+delete s2;
 
-    CollisionObject c0(box0, tf0);
-    CollisionObject c1(box1, tf1);
-
-    omp_set_num_threads(NUM_THREADS);
-#pragma omp parallel
-    {
-  	collide(&c0, &c1, request, result);
-    }
+    return 0;
 
 }
+
+
+
+
+
+
 
 
 

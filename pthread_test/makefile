@@ -1,8 +1,8 @@
 CC = g++
 OBJS = *.cpp
 NAME = CollisionTest
-COMMON_FLAGS = -Wall -pthread
-LIB_FLAGS = -lfcl
+COMMON_FLAGS = -pthread
+LIB_FLAGS = -lfcl -lboost_system
 
 CPP_FLAGS = $(COMMON_FLAGS) -I/usr/local/include
 LDFLAGS = -L/usr/local/lib -L/usr/lib/x86_64-linux-gnu $(LIB_FLAGS)

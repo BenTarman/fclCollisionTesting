@@ -1,7 +1,7 @@
 CC = g++
 OBJS = *.cpp
 NAME = CollisionTest
-COMMON_FLAGS = -Wall -fopenmp -pg
+COMMON_FLAGS = -Wall -pg -pthread
 LIB_FLAGS = -lfcl -lboost_system
 
 CPP_FLAGS = $(COMMON_FLAGS) -I/usr/local/include
@@ -24,3 +24,6 @@ helgrind: $(NAME)
 	valgrind --tool=helgrind ./$(NAME)
 clean:
 	rm -rf $(NAME)*
+
+
+

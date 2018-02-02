@@ -1,5 +1,25 @@
-Calling fcl collide function isn't thread safe because of write operations in the collide
+DESCRIBE
+
+Calling fcl::collide function isn't thread safe because of in the collide
 funciton from the looktable.
+
+REPRODUCE the problem
+how to reproduce the problem. attach the test case.
+
+
+
+PROBLEM DESCRIPTION
+shared variables: CollisionFunctionMatrirx looktable. the issue is on line 91.
+
+where looktable is read and written.
+
+
+
+POSSIBLE SOLUTIONS
+
+
+read man page PTHREAD_ONCE;
+
 
 Adding locks on operations for looktable fixes these issues (the varaible std::size_t res
 is the main thing causing conflicts).
@@ -12,3 +32,12 @@ either fix is applied. For the openmp implementation drd gives no errors with th
 Helgrind does give
 errors but they are false positives that will dissapear when recompiling gcc
 with '--disable-linux-futex' (https://stackoverflow.com/questions/10641972/helgrind-valgrind-and-openmp-c-avoiding-false-positives)
+
+
+
+
+
+
+
+
+
